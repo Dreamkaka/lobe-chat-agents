@@ -10,7 +10,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install bun
         uses: oven-sh/setup-bun@v1
@@ -24,11 +24,16 @@ jobs:
       - name: Format
         run: bun run format
         env:
-          OPENAI_TOKEN: ${{ secrets.OPENAI_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Awesome
+        run: bun run awesome
 
       - name: Prettier
         run: |
-          echo "module.exports = require('@lobehub/lint').prettier;" >> .prettierrc.js
+          echo "module.exports = require('@lobehub/lint').remarklint;" >> .remarkrc.cjs
+          bun run lint:md
+          echo "module.exports = require('@lobehub/lint').prettier;" >> .prettierrc.cjs
           bun run prettier
 
       - name: Commit changes

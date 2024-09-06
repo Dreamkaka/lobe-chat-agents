@@ -32,6 +32,7 @@ export const lobeAgentSchema = z.object({
   author: z.string(),
   config: lobeAgentConfigSchema,
   createAt: z.string(),
+  createdAt: z.string().optional(),
   examples: lLMChatsSchema.optional(),
   homepage: z.string(),
   identifier: z.string(),
